@@ -8,7 +8,7 @@ export const miniWebList = [
     },
     {
         name: VUE2,
-        entry: '//localhost:9002/', // html应用入口
+        entry: '//localhost:9002', // html应用入口
         container: ACTIVE_RULE, // 渲染位置
         activeRule: MINI_WEB_MAP[VUE2]
     },
