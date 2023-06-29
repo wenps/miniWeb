@@ -20,7 +20,6 @@ if(!window.__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
-  console.log('bootstrap');
 }
 
 // 挂载逻辑

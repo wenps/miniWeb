@@ -1,8 +1,7 @@
 
 // const { defineConfig } = require('@vue/cli-service')
 const { name } = require('./package');
-module.exports = 
-{
+module.exports = {
   devServer: {
     port: 9003,
     headers: {
@@ -12,9 +11,10 @@ module.exports =
   configureWebpack: {
     mode: 'development',
     output: {
-      library: `${name}-[name]`,
+      library: `${name}`,
       libraryTarget: 'umd', // 把微应用打包成 umd 库格式
       chunkLoadingGlobal: `webpackJsonp_${name}`,
+      globalObject: 'window'
     },
   },
 }

@@ -18,13 +18,11 @@ function render(props) {
 }
 
 if(!window.__POWERED_BY_QIANKUN__) {
-  console.log('测试');
   // 如果乾坤不存在，走默认挂载，独立运行
   mount({})
 }
 
 export async function bootstrap() {
-  console.log('bootstrap');
 }
 
 // 挂载逻辑
@@ -39,4 +37,3 @@ export async function unmount() {
   instance = null
 }
 // window.unmount = unmount
-

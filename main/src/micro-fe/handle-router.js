@@ -1,7 +1,19 @@
 import { getApps } from './index';
 import { importHTML } from './import-html';
+import { errorCatch } from "./utils/error-catch";
+
+
+let lifeCycle = null
+let container = null
+let app = null // 存储一个全局的 子应用实例
 // 处理路由变化
 export const handleRouter = () => {
+
+    // 如果子应用实例存在，则卸载
+    if(app) {
+        unmount()
+    }
+
     // 创建一个异步任务将更新逻辑放到最后执行防止拿不到目标节点
     setTimeout(async () => {
         console.log('路由变化');
@@ -11,30 +23,48 @@ export const handleRouter = () => {
     
         // 2.2 去apps里面查找
         const apps = getApps(); // 获取app列表
-        const app = apps.find((item) => window.location.pathname.startsWith(item.activeRule)); // 获取目标app
+        app = apps.find((item) => window.location.pathname.startsWith(item.activeRule)); // 获取目标app
         if (!app) {
             // 如果没有匹配到app 则直接返回
             return;
         }
     
         // 3.加载子应用
-        const container = document.querySelector(app.container); // 获得入口
+        container = document.querySelector(app.container); // 获得入口
         const {template, execScripts} = await importHTML(app.entry)
         container.appendChild(template); // 插入目标节点
     
         // 设置全局乾坤变量
-        // window.__POWERED_BY_QIANKUN__ = true // 告知子应用在基座下渲染
+        window.__POWERED_BY_QIANKUN__ = true // 告知子应用在基座下渲染
     
-        execScripts()
-        
-    
-        
-        
-        // 手动加载子应用的script
-        // 执行script中的代码
-        // eval 或 new Function
-    
-        // 4.渲染子应用
-        
+        lifeCycle = await execScripts()
+
+        // 将 生命周期 挂载到 子应用列表中
+        app.mount = lifeCycle.mount
+        app.unmount = lifeCycle.unmount
+        app.bootstrap = lifeCycle.bootstrap
+
+        // 执行生命周期函数
+        bootstrap()
+        mount()
     }, 0);
 };
+
+// 封装生命周期函数执行函数
+
+const mount = errorCatch(async () => {
+    console.log('mount');
+    app.mount && await app.mount({
+        container
+    })
+})
+
+const unmount = errorCatch(async () => {
+    console.log('unmount');
+    app.unmount && await app.unmount()
+})
+
+const bootstrap = errorCatch(async () => {
+    console.log('bootstrap');
+    app.bootstrap && await app.bootstrap()
+})
