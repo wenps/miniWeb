@@ -23,6 +23,8 @@ if(!window.__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
+  window.xxx = 2131
+  console.log(window.xxx, 12);
 }
 
 // 挂载逻辑
@@ -32,8 +34,8 @@ export async function mount(props) {
 
 // 组件实例卸载流程
 export async function unmount() {
-  instance.$destroy()
-  instance.$el.innerHTML = ''
-  instance = null
+  instance.$destroy();
+  instance.$el.innerHTML = '';
+  instance = null;
 }
 // window.unmount = unmount

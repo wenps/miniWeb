@@ -1,6 +1,7 @@
 import { getApps } from './index';
 import { importHTML } from './import-html';
 import { errorCatch } from "./utils/error-catch";
+import { sandbox } from "./utils/sandbox";
 
 
 let lifeCycle = null
@@ -11,6 +12,7 @@ export const handleRouter = () => {
 
     // 如果子应用实例存在，则卸载
     if(app) {
+        app.sandbox.inactive() // 关闭沙箱
         unmount()
     }
 
@@ -28,10 +30,15 @@ export const handleRouter = () => {
             // 如果没有匹配到app 则直接返回
             return;
         }
+
+        // 创建沙箱实例
+        if (!app.sandbox) {
+            app.sandbox = new sandbox()
+        }
     
         // 3.加载子应用
         container = document.querySelector(app.container); // 获得入口
-        const {template, execScripts} = await importHTML(app.entry)
+        const {template, execScripts} = await importHTML(app)
         container.appendChild(template); // 插入目标节点
     
         // 设置全局乾坤变量
@@ -44,6 +51,7 @@ export const handleRouter = () => {
         app.unmount = lifeCycle.unmount
         app.bootstrap = lifeCycle.bootstrap
 
+        app.sandbox.active() // 启动沙箱
         // 执行生命周期函数
         bootstrap()
         mount()

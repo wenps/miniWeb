@@ -2,7 +2,9 @@
 
 import { fetchResource } from "./utils/fetch-resource";
 // 解析html
-export const importHTML = async (url) => {
+export const importHTML = async (app) => {
+    const url = app.entry
+
     // 请求获取子应用 返回内容
     const html = await fetchResource(url)
     const template = document.createElement('div');
@@ -29,18 +31,17 @@ export const importHTML = async (url) => {
     // 获取并执行所有的script代码
     async function execScripts() {
         const scripts = await getExternalScripts()
-
         const module = { exports: {} }
         const exports = module.exports
-
         // 因为umd 格式会判断当前环境有没有 module 和 exports， 所以我们可以直接在当前环境构造出来，这样子就会将工厂函数返回结果赋值给module.exports
         scripts.forEach((code) => {
             // eval 执行的代码可以访问外部作用域
-            eval(code)
+            eval(code);
+            ((window) => {
+                eval(code);
+            })(app.sandbox.box);
+           
         }) // 遍历执行代码
-
-        console.log(module.exports);
-        console.log(exports);
         return module.exports
     }
 
