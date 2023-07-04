@@ -20,6 +20,8 @@ if(!window.__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
+  window.xxx = 2222
+  console.log(window.xxx, 123);
 }
 
 // 挂载逻辑

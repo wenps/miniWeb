@@ -14,7 +14,6 @@ module.exports = {
       library: `${name}`,
       libraryTarget: 'umd', // 把微应用打包成 umd 库格式
       chunkLoadingGlobal: `webpackJsonp_${name}`,
-      globalObject: 'window'
     },
   },
 }
