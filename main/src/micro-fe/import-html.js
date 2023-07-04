@@ -36,10 +36,14 @@ export const importHTML = async (app) => {
         // 因为umd 格式会判断当前环境有没有 module 和 exports， 所以我们可以直接在当前环境构造出来，这样子就会将工厂函数返回结果赋值给module.exports
         scripts.forEach((code) => {
             // eval 执行的代码可以访问外部作用域
-            eval(code);
-            ((window) => {
-                eval(code);
-            })(app.sandbox.box);
+            // eval(code);
+            ((window, module, exports) => {
+                try {
+                    eval(code);
+                } catch (error) {
+                    console.log(error);
+                }
+            })(app.sandbox.box, module, exports);
            
         }) // 遍历执行代码
         return module.exports
