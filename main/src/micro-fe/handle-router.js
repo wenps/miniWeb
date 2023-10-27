@@ -1,3 +1,9 @@
+/*
+ * @Author: xiaoshanwen
+ * @Date: 2023-07-19 22:37:08
+ * @LastEditTime: 2023-10-27 14:21:09
+ * @FilePath: /miniWeb/main/src/micro-fe/handle-router.js
+ */
 import { getApps } from './index';
 import { importHTML } from './import-html';
 import { errorCatch } from "./utils/error-catch";
@@ -38,6 +44,7 @@ export const handleRouter = () => {
     
         // 3.加载子应用
         container = document.querySelector(app.container); // 获得入口
+        container.innerHTML = ''
         const {template, execScripts} = await importHTML(app)
         container.appendChild(template); // 插入目标节点
     

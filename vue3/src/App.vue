@@ -1,3 +1,9 @@
+<!--
+ * @Author: xiaoshanwen
+ * @Date: 2023-07-19 22:37:08
+ * @LastEditTime: 2023-10-27 17:53:27
+ * @FilePath: /miniWeb/vue3/src/App.vue
+-->
 <template>
   <!-- <nav>
     <router-link to="/">Home</router-link> |
@@ -6,19 +12,19 @@
   <router-view/> -->
   <div class="home">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue3.js App"/>
+    <h1>VUE3</h1>
   </div>
 </template>
 
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    // HelloWorld
   }
 }
 </script>

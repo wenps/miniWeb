@@ -1,26 +1,32 @@
+<!--
+ * @Author: xiaoshanwen
+ * @Date: 2023-08-11 17:08:44
+ * @LastEditTime: 2023-10-27 17:53:08
+ * @FilePath: /miniWeb/vue2/src/App.vue
+-->
 <template>
   <div id="app">
     <!-- <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/> -->
+    </nav> -->
     <div class="home">
       <img alt="Vue logo" src="./assets/logo.png">
-      <HelloWorld msg="Welcome to Your Vue.js App"/>
-      <router-view/>
+      <h1>VUE2</h1>
+      <!-- <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <router-view/> -->
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    // HelloWorld
   },
   created(){
   }
